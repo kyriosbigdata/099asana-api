@@ -1,0 +1,308 @@
+════════════════════════════════════════════════════════════════
+  PROYECTO: 099asana-api
+  DESCRIPCIÓN: Integración con Asana API - Crear proyectos y portfolios
+  TECH: Node.js, Asana API, CSV
+════════════════════════════════════════════════════════════════
+
+📁 ESTRUCTURA DEL PROYECTO:
+──────────────────────────────────────────────────────────────
+
+  📄 index.mjs                    → Script para crear proyectos desde CSV
+  📄 addProjectsToPortfolio.mjs   → Script para añadir proyectos a portfolio
+
+  📂 modules/
+    ├── asanaProjects.mjs         → Funciones para gestionar proyectos
+    └── asanaPortfolio.mjs        → Funciones para gestionar portfolios
+
+  📄 package.json                 → Dependencias (node-fetch, csv-parse, dotenv)
+  📄 .env                         → Variables de entorno (API key, IDs)
+
+  📂 input/                       → CSVs de entrada
+    └── projects.csv             → Lista de proyectos a crear
+
+  📂 output/                      → Resultados
+    ├── projects.created.json     → JSON con proyectos creados
+    └── projects.created.csv      → CSV con resultados
+
+  📄 token-asana.txt              → Token de API (GUARDAR SEGURO)
+  📄 project.json                 → Ejemplo de estructura de proyecto
+
+
+🎯 ¿QUÉ HACE?
+──────────────────────────────────────────────────────────────
+
+Suite de herramientas para automatizar Asana:
+
+  1. CREAR proyectos en batch desde CSV
+  
+  2. AÑADIR proyectos a portfolios
+  
+  3. EXPORTAR resultados en JSON y CSV
+  
+  4. LOGS detallados de cada operación
+
+
+🚀 CÓMO USAR:
+──────────────────────────────────────────────────────────────
+
+  1. CONFIGURACIÓN INICIAL:
+     
+     a) Obtener token de Asana:
+        • Asana.com → Mi perfil → Aplicaciones
+        • Crear token personal
+        • Guardar en .env
+     
+     b) Obtener GIDs (IDs de Asana):
+        • Workspace GID: de URL de workspace
+        • Team GID: de URL del equipo
+        • Portfolio GID: de URL del portfolio
+     
+     c) Crear archivo .env:
+        ASANA_TOKEN=xxxxxxxxxxxxx
+        ASANA_WORKSPACE_GID=123456
+        ASANA_TEAM_GID=789012
+
+  2. CREAR PROYECTOS DESDE CSV:
+     node index.mjs
+     
+     Esto:
+     • Lee input/projects.csv
+     • Crea cada proyecto en Asana
+     • Genera: output/projects.created.json
+               output/projects.created.csv
+
+  3. AÑADIR A PORTFOLIO:
+     node addProjectsToPortfolio.mjs
+     
+     Esto:
+     • Lee proyectos creados
+     • Los añade a un portfolio
+     • Reporta resultado
+
+
+⚙️ CONFIGURACIÓN (.env):
+──────────────────────────────────────────────────────────────
+
+  ASANA_TOKEN
+    → Token de API personal de Asana
+    → Genera en: https://asana.com/app/profile/
+    → Nunca compartir ni commitiar
+
+  ASANA_WORKSPACE_GID
+    → ID del workspace en Asana
+    → Ejemplo: "123456789"
+    → Se ve en URL: https://asana.com/0/123456789/
+
+  ASANA_TEAM_GID
+    → ID del equipo dentro del workspace
+    → Ejemplo: "987654321"
+    → Se ve en URL de equipo
+
+
+📋 ESTRUCTURA DEL INPUT CSV (projects.csv):
+──────────────────────────────────────────────────────────────
+
+  Mínimo:
+  ┌──────────────────┬─────────────────────┐
+  │ name             │ description         │
+  ├──────────────────┼─────────────────────┤
+  │ Proyecto A       │ Descripción del A   │
+  │ Proyecto B       │ Descripción del B   │
+  └──────────────────┴─────────────────────┘
+
+  Avanzado (con más campos):
+  ┌──────────────────┬──────────────────┬────────────┬─────────┐
+  │ name             │ description      │ due_date   │ color   │
+  ├──────────────────┼──────────────────┼────────────┼─────────┤
+  │ Proyecto A       │ Descripción...   │ 2025-03-15 │ blue    │
+  │ Proyecto B       │ Descripción...   │ 2025-04-20 │ red     │
+  └──────────────────┴──────────────────┴────────────┴─────────┘
+
+  Campos soportados:
+  • name (REQUERIDO)
+  • description
+  • due_date (formato: YYYY-MM-DD)
+  • color (blue, red, green, yellow, purple, orange, pink, teal)
+
+
+📤 SALIDA JSON (projects.created.json):
+──────────────────────────────────────────────────────────────
+
+  [
+    {
+      "gid": "1234567890",
+      "name": "Proyecto A",
+      "description": "Descripción del A",
+      "href": "https://asana.com/0/123456/1234567890",
+      "status": "created",
+      "timestamp": "2025-01-13T10:30:00Z"
+    },
+    ...
+  ]
+
+
+📄 SALIDA CSV (projects.created.csv):
+──────────────────────────────────────────────────────────────
+
+  gid,name,description,href,status,timestamp
+  "1234567890","Proyecto A","Descripción del A","https://asana.com/...",created,"2025-01-13T10:30:00Z"
+
+
+📦 DEPENDENCIAS:
+──────────────────────────────────────────────────────────────
+
+  - node-fetch (v3.3.2+)   → HTTP requests (Asana API)
+  - csv-parse (v6.1.0+)    → Parser de CSV
+  - dotenv (v17.2.3+)      → Cargar .env
+
+
+🔐 SEGURIDAD:
+──────────────────────────────────────────────────────────────
+
+  • ASANA_TOKEN NO debe commitirse a Git
+  
+  • Incluir .env en .gitignore
+  
+  • Token es equivalente a tu contraseña en Asana
+  
+  • Regenerar token si se compromete
+  
+  • Usar secretos en CI/CD
+
+
+💡 FLUJO TÍPICO:
+──────────────────────────────────────────────────────────────
+
+  1. Obtener token de Asana
+  
+  2. Crear .env con credenciales
+  
+  3. Preparar input/projects.csv
+  
+  4. node index.mjs
+     (Crear proyectos)
+  
+  5. Verificar output/projects.created.json
+  
+  6. (Opcional) node addProjectsToPortfolio.mjs
+     (Añadir a portfolio)
+  
+  7. Revisar en Asana.com
+
+
+🎯 CASOS DE USO:
+──────────────────────────────────────────────────────────────
+
+  ✓ Crear múltiples proyectos en batch
+  
+  ✓ Plantillas de proyecto automatizadas
+  
+  ✓ Sincronizar proyectos desde sistema externo
+  
+  ✓ Generar portfolio de proyectos
+  
+  ✓ Migración de proyectos entre workspaces
+  
+  ✓ Automatizar setup inicial de Asana
+
+
+⚙️ FUNCIONES DISPONIBLES:
+──────────────────────────────────────────────────────────────
+
+  asanaProjects.mjs:
+    • createProject(config, data)
+      Crea 1 proyecto en Asana
+      Parámetros: token, workspace, team, project data
+      Retorna: project GID y metadata
+
+  asanaPortfolio.mjs:
+    • addProjectsToPortfolio(config, projectGids, portfolioGid)
+      Añade proyectos a un portfolio
+      Parámetros: token, project GIDs, portfolio GID
+      Retorna: resultado de la operación
+
+
+⚠️ CONSIDERACIONES:
+──────────────────────────────────────────────────────────────
+
+  • Requiere cuenta activa en Asana
+  
+  • Requiere permissions en workspace/team
+  
+  • API tiene límites de rate (150 requests/min)
+  
+  • Primero ejecutar index.mjs (crear proyectos)
+  
+  • Luego addProjectsToPortfolio.mjs (si aplica)
+  
+  • CSV debe estar en UTF-8
+  
+  • Nombres de columnas deben ser exactos (case-sensitive)
+  
+  • Requiere Node.js 16+
+
+
+💾 EJEMPLO COMPLETO:
+──────────────────────────────────────────────────────────────
+
+  .env:
+  ──────────────────────────────────────────────────────────
+  ASANA_TOKEN=1/1234567890abcdef1234567890abcdef
+  ASANA_WORKSPACE_GID=123456789012
+  ASANA_TEAM_GID=987654321098
+
+  input/projects.csv:
+  ──────────────────────────────────────────────────────────
+  name,description,due_date,color
+  Proyecto 2025,Planificación anual,2025-12-31,blue
+  Campaign Q1,Marketing Q1,2025-03-31,green
+  Dev Sprint,Sprint de desarrollo,2025-02-28,purple
+
+  Ejecutar:
+  ──────────────────────────────────────────────────────────
+  $ node index.mjs
+  ✅ Leyendo CSV: input/projects.csv
+  ✅ Creando proyecto: "Proyecto 2025"
+  ✅ Creando proyecto: "Campaign Q1"
+  ✅ Creando proyecto: "Dev Sprint"
+  ✅ Resultados guardados: output/projects.created.json
+
+
+🔧 TROUBLESHOOTING:
+──────────────────────────────────────────────────────────────
+
+  Error: "ASANA_TOKEN undefined"
+    → Crear .env con ASANA_TOKEN
+    → Asegurar token válido de Asana
+
+  Error: "Invalid workspace GID"
+    → Verificar ASANA_WORKSPACE_GID en .env
+    → Format: debe ser números
+
+  Error: "Permission denied"
+    → Token sin permisos en workspace
+    → Revisar permisos en Asana admin
+
+  CSV no encuentra columnas
+    → Verificar nombres exactos (case-sensitive)
+    → Asegurar no hay espacios extra
+
+  Rate limit exceeded
+    → Esperar antes de reintentar
+    → Reducir batch size
+
+
+🔗 REFERENCIAS:
+──────────────────────────────────────────────────────────────
+
+  • Asana API Documentation:
+    https://developers.asana.com/docs
+
+  • Obtener token:
+    https://asana.com/app/profile/
+
+  • GIDs y URLs:
+    Ver en URL de Asana (workspace/proyecto/equipo)
+
+
+════════════════════════════════════════════════════════════════
