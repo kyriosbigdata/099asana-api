@@ -2,6 +2,12 @@
   PROYECTO: 099asana-api
   DESCRIPCIÓN: Integración con Asana API - Crear proyectos y portfolios
   TECH: Node.js, Asana API, CSV
+
+  comando de autorización por ssl 
+
+  $env:NODE_TLS_REJECT_UNAUTHORIZED="0"
+node index.mjs
+
 ════════════════════════════════════════════════════════════════
 
 📁 ESTRUCTURA DEL PROYECTO:

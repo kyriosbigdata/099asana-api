@@ -1,0 +1,59 @@
+2/1210342043216943/1212682827122170:4018491cf2ace5b6203ff6c89fbf8437
+
+#comando de generacion para que el token este para el uso en la terminal
+$ASANA_TOKEN="2/1210342043216943/1212682827122170:4018491cf2ace5b6203ff6c89fbf8437"
+curl.exe -H "Authorization: Bearer $ASANA_TOKEN" https://app.asana.com/api/1.0/users/me
+
+#generacion del team gid
+curl.exe -H "Authorization: Bearer $ASANA_TOKEN" "https://app.asana.com/api/1.0/teams?workspace=11177621585477"
+
+#gemeracopm del team gid, limite de paginacion, para ver que equipo podemos usar
+curl.exe -H "Authorization: Bearer $ASANA_TOKEN" "https://app.asana.com/api/1.0/teams?workspace=11177621585477&limit=50"
+
+
+
+
+#Generacion del proyecto con el team de SEO Kinesso para usar el GID, genera el project gid
+$body = @{
+  data = @{
+    name      = "Indexability"
+    notes     = "Control y monitoreo de las reglas de indexación y urls aprobadas"
+    workspace = "11177621585477"
+    team      = "1211264932228182"
+    public    = $false
+  }
+} | ConvertTo-Json -Depth 10
+
+Invoke-RestMethod `
+  -Method Post `
+  -Uri "https://app.asana.com/api/1.0/projects" `
+  -Headers @{ Authorization = "Bearer $ASANA_TOKEN" } `
+  -ContentType "application/json; charset=utf-8" `
+  -Body $body
+
+
+#project id 
+@{gid=1212710388855004; resource_type=project; created_at=2026-01-08T17:42:52.907Z; modified_at=2026-01-08T17:42:52.907Z; completed=False; due_date=; due_on=; current_status_update=; current_status=; public=False; pri... 
+
+
+
+# Asignación del campo text al proyecto creado
+
+$PROJECT_GID = "PEGA_AQUI_EL_PROJECT_GID"
+$CUSTOM_FIELD_GID = "PEGA_AQUI_EL_CUSTOM_FIELD_GID"
+
+$BODY = @"
+{
+  "data": {
+    "custom_field": "$CUSTOM_FIELD_GID"
+  }
+}
+"@
+
+curl.exe -X POST `
+  -H "Authorization: Bearer $ASANA_TOKEN" `
+  -H "Content-Type: application/json" `
+  -d $BODY `
+  https://app.asana.com/api/1.0/projects/$PROJECT_GID/addCustomFieldSetting
+
+
