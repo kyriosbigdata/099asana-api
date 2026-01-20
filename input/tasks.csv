@@ -1,0 +1,31 @@
+project_gid,name ,notes
+1212866299430987,Technical duplicate content,Redirect one web property to the other/update server-side configuration.
+1212873179591521,www. Duplication,Redirect one web property to the other/update server-side configuration.
+1212873179591521,Robots.txt,¿El sitio utiliza un archivo robots.txt? Se aplica por subdominio el robots.txt
+1212873179591521,XML Sitemaps,Add an XML sitemap to the site.
+1212873179591521,Noindex  Tags,Remove noindex tags from important pages.
+1212873179591521,Homepage Duplication,
+1212873179591521,Crawlable Navigation,Implement crawlable HTML or HTML rollback to navigation.
+1212873179591521,JavaScript Frameworks,
+1212868158029420,New Backlinks,Work with PR and marketing team to ensure that the brand is credited with a link when mentioned in news-worthy articles.
+1212868158029420,Low Quality Backlinks,Review the low quality links and contact webmasters to remove links. Consider adding links that cannot be removed to disavow file and uploading to Google Search Console.
+1212868158029420,Deep links,Identify existing backlinks that could link to a more relevant page other than the homepage (thereby improving user experience). Build links to deeper pages within the website.
+1212868158029420,Social Shares,Work with PR and social teams to increase the number of pages shared socially.
+1212872347739609,Accelerated Mobile Pages,
+1212873178310021,Mobile Page Load Speed,Perform a page speed test and fix critical issues in order to improve page load time for all devices.
+1212868158035630,Product Images,Add additional product images to each product.
+1212868158035630,Intuitive Form Fields,Implement a CTA strategy to improve user flow throughout the site.
+1212873179601425,Meta Descriptions,Create and implement optimized meta descriptions.
+1212873179601425,H1 Tags Missing,Create and implement optimized h1 tags on core pages.
+1212873179601425,Excessive H1 Tags,Alter header tag structure to ensure there is only one h1 per page.
+1212873179601425,Heading Semantics,Implement correctly structured semantic mark-up.
+1212873179601425,Rich Media,Add a h1 tag to the homepage.
+1212873179601425,Thin Content,Remove thin content or add text to pages with thin content.
+1212873179601425,Content For Discovery Phase,
+1212872347734836,Duplicate Local Listings,Review locations and remove duplicates as required.
+1212872347734836,Reviews On Local Listings,Develop a client review process.
+1212873178327015,Analytics Platform,Implement an analytics solution such as Google Analytics.
+1212873178327015,Analytics Code Missing,Add analytics tracking code to all pages on the website.
+1212873178327015,Analytics Code Duplication,Remove multiple analytics tracking codes that could be affecting data quality.
+1212873178327015,Tagging Position,Move analytics tracking/tag management code to correct position in HTML source.
+1212873178327015,No Tag Management Solution,Implement a tag management solution.

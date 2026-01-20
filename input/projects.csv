@@ -1,0 +1,10 @@
+name ,notes
+Security,"Http/https duplication - occurs where both the http & https versions of a site are live. Search engines see sites hosted on http protocols and https protocols as distinct entities. For example, the site http://www.example.com is entirely distinct from https://www.example.com. If users arrive on the NON-default protocol (http/https) does the website redirect users using a 301, 302, or 307 redirect to the most appropriate URL? *\r\nGuidance"
+Indexability,Monitoreo y optmización de indexación y tráfico por posicionamiento de keywords
+Links,Estrategia de optmización del dominio frente a otras webs.
+Mobile,Optimización experience en formato responsive.
+Site Speed,Mejoras para aumentar la velocidad de carga de la web.
+Usability,Avances en experiencia de usuario e interacción con el usuario.
+Content,Optmización de contenidos a nivel de rastreo y keywords.
+Local,Avances en la geolocalización de puntos de la marca.
+Analytics,Monitorio histórico y gráfico de los kpis y métricas del activo digital.
